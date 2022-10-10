@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description:
+  This template deploys Application infra stack for Project 2 Udacity, with
+
+Parameters: 
+  ProjectName:
+    Type: String
+    Description: Project name that will be prefixed to resource names
+  NetworkStackName:
+    Type: String
+    Description: Network stack name
+
+Resources: 
+
+  # Bastion Host
+  BastionHost:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref EC2AMI
+      InstanceType: t2.micro
+      # KeyName: !Ref BastionKey
+      SecurityGroupIds:
+        - Fn::ImportValue: !Sub ${NetworkStackName}-BastionSG
+      SubnetId: 
+        Fn::ImportValue: !Sub ${NetworkStackName}-PublicSubnet1Id
+      Tags:
+        - Key: Name
+          Value: !Sub ${ProjectName}-bastion
+
+# Outputs:
+
+#   ALBDNSName:
+#     Description: DNS name of the load balancer
+#     Value: !Sub
+#       - 'http://${ALBDNS}'
+#       - ALBDNS: !GetAtt AppLoadBalancer.DNSName
