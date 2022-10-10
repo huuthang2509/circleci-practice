@@ -21,8 +21,8 @@ Resources:
       # KeyName: !Ref BastionKey
       SecurityGroupIds:
         - Fn::ImportValue: !Sub ${NetworkStackName}-BastionSG
-      SubnetId: 
-        Fn::ImportValue: !Sub ${NetworkStackName}-PublicSubnet1Id
+      # SubnetId: 
+      #   Fn::ImportValue: !Sub ${NetworkStackName}-PublicSubnet1Id
       Tags:
         - Key: Name
           Value: !Sub ${ProjectName}-bastion
